@@ -12,7 +12,7 @@ module.exports = {
         const db = req.app.get('db');
         const { name, address, city, state, zipcode } = req.body;  
         db
-        .create_house({name, address, city, state, zipcode})
+        .create_house([name, address, city, state, zipcode])
         .then((create_house) => res.status(200).send(create_house))
         .catch(err => {
             res.status(500).send(err)
@@ -36,8 +36,8 @@ module.exports = {
     deleteHouse: (req, res, next) => {
         const db = req.app.get('db');
         const { id } = req.params;
-        db.delete_house([id]).then( () => {
-            res.status(200).send('All Good')
+        db.delete_house([id]).then( (delete_house) => {
+            res.status(200).send(delete_house)
         }).catch(err => {
             res.status(500).send("Something is wroing")
         })
